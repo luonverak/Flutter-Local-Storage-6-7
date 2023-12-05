@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
           child: const SizedBox(
             height: 85,
             child: Card(
-              color: Colors.amber,
+              color: Color.fromARGB(255, 235, 235, 235),
               child: ListTile(
                 title: Text(
                   'Note title',
