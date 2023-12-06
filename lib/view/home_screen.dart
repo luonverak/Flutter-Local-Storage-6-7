@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:local_storage/view/add_screen.dart';
@@ -68,9 +68,9 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           child: const SizedBox(
-            height: 85,
+            height: 80,
             child: Card(
-              color: Color.fromARGB(255, 235, 235, 235),
+             color: Color.fromARGB(255, 235, 235, 235),
               child: ListTile(
                 title: Text(
                   'Note title',
