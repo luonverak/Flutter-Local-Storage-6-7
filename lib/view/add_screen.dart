@@ -1,12 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:local_storage/controller/note_controller.dart';
+import 'package:local_storage/model/note_model.dart';
 import 'package:local_storage/widget/colors_custom.dart';
 
 import '../widget/input_field.dart';
+import 'home_screen.dart';
 
 class AddScreen extends StatelessWidget {
   AddScreen({super.key});
-  var noteTitle = TextEditingController();
-  var noteDescription = TextEditingController();
+  final noteTitle = TextEditingController();
+  final noteDescription = TextEditingController();
+  final date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +22,23 @@ class AddScreen extends StatelessWidget {
         title: const Text('Add note'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await NoteController()
+                  .insertData(
+                    NoteModel(
+                      id: Random().nextInt(10000),
+                      title: noteTitle.text,
+                      description: noteDescription.text,
+                      date: "${date.year}-${date.month}-${date.day}",
+                    ),
+                  )
+                  .whenComplete(() => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                      (route) => false));
+            },
             icon: const Icon(Icons.save),
           ),
         ],
