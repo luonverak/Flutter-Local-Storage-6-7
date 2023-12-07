@@ -78,55 +78,52 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var item = snapshot.data![index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Slidable(
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      children: [
-                        SlidableAction(
-                          onPressed: (context) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditScreen(),
-                              ),
-                            );
-                          },
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
-                          icon: Icons.edit,
-                          label: 'Edit',
-                        ),
-                        SlidableAction(
-                          onPressed: (context) {},
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          icon: Icons.delete,
-                          label: 'Remove',
-                        ),
-                      ],
-                    ),
-                    child: SizedBox(
-                      height: 80,
-                      child: Card(
-                        color: const Color.fromARGB(255, 235, 235, 235),
-                        child: ListTile(
-                          title: Text(
-                            item.title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                return Slidable(
+                  endActionPane: ActionPane(
+                    motion: const DrawerMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditScreen(),
                             ),
+                          );
+                        },
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        icon: Icons.edit,
+                        label: 'Edit',
+                      ),
+                      SlidableAction(
+                        onPressed: (context) {},
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete,
+                        label: 'Remove',
+                      ),
+                    ],
+                  ),
+                  child: SizedBox(
+                    height: 80,
+                    child: Card(
+                      color: const Color.fromARGB(255, 235, 235, 235),
+                      child: ListTile(
+                        title: Text(
+                          item.title,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(item.description),
-                              Text(item.date),
-                            ],
-                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.description),
+                            Text(item.date),
+                          ],
                         ),
                       ),
                     ),
