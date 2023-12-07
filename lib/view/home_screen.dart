@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: Text(
                           item.title,
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
