@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:local_storage/controller/note_controller.dart';
 import 'package:local_storage/model/note_model.dart';
 import 'package:local_storage/view/add_screen.dart';
+import 'package:local_storage/view/detail_screen.dart';
 import 'package:local_storage/view/edit_screen.dart';
 import 'package:local_storage/widget/colors_custom.dart';
 
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(
               Icons.add,
               size: 30,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ],
@@ -78,52 +79,75 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var item = snapshot.data![index];
-                return Slidable(
-                  endActionPane: ActionPane(
-                    motion: const DrawerMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditScreen(),
-                            ),
-                          );
-                        },
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        icon: Icons.edit,
-                        label: 'Edit',
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {},
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                        icon: Icons.delete,
-                        label: 'Remove',
-                      ),
-                    ],
-                  ),
-                  child: SizedBox(
-                    height: 80,
-                    child: Card(
-                      color: const Color.fromARGB(255, 235, 235, 235),
-                      child: ListTile(
-                        title: Text(
-                          item.title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailNote(
+                          model: item,
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item.description),
-                            Text(item.date),
-                          ],
+                      ),
+                    );
+                  },
+                  child: Slidable(
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      children: [
+                        SlidableAction(
+                          borderRadius: BorderRadius.circular(5),
+                          onPressed: (context) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditScreen(
+                                  model: item,
+                                ),
+                              ),
+                            );
+                          },
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          icon: Icons.edit,
+                          label: 'Edit',
+                        ),
+                        SlidableAction(
+                          borderRadius: BorderRadius.circular(5),
+                          onPressed: (context) async {
+                            await NoteController()
+                                .deleteData(item.id.toString())
+                                .whenComplete(() => refresh());
+                          },
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Remove',
+                        ),
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: 80,
+                      child: Card(
+                        color: const Color.fromARGB(255, 235, 235, 235),
+                        child: ListTile(
+                          title: Text(
+                            item.title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.description,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(item.date),
+                            ],
+                          ),
                         ),
                       ),
                     ),
